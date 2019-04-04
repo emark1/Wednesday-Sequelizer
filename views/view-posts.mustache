@@ -1,0 +1,39 @@
+<html>
+<head></head>
+
+<body>
+
+<h1>Posts</h1>
+<ul>
+{{#posts}}
+
+<li>
+  <div>
+  {{title}}
+  </div>
+  <p>
+  {{body}}
+  </p>
+  <p>
+  {{id}}
+  </p>
+  <form action="/delete-post" method="POST">
+    <input type="hidden" name="postId" value="{{id}}" />
+    <button type="submit">Delete</button>
+  </form>
+  <a href="/posts/edit/{{id}}"><button>Edit</button></a>
+  <form action='/create-comment' method="POST">
+    <input type="hidden" name="postId" value="{{id}}" />
+    <textarea name="commentbody" placeholder="Your comment"></textarea>
+    <button type="submit">Save</button>
+  </form>
+
+</li>
+
+{{/posts}}
+</ul>
+
+
+</body>
+
+</html>
