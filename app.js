@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.set('views','./views')
 app.set('view engine','mustache')
 
-
+//Create a new post
 app.post('/create-post',(req,res) => {
     //Get the input variables from the create-post page
     let title = req.body.title
@@ -29,6 +29,61 @@ app.post('/create-post',(req,res) => {
       console.log("Ay pretty good")
     }).catch(error => console.log(error))
 })
+
+//Create and save comment
+app.post('/create-comment',(req,res) => {
+    //Get the input variables from the create-post page
+    let title = req.body.commenttitle
+    let body = req.body.commentbody
+    let postId = req.body.postId
+
+    let comment = models.Comment.build({
+        title: title,
+        body: body,
+        postId: postId
+      })
+    
+    comment.save().then((savedPost) => {
+        console.log(savedPost)
+      })
+      .then(() => {
+      res.redirect('view-posts')
+        console.log("Ay pretty good")
+      }).catch(error => console.log(error))
+})
+
+
+//Render comments page with the found post
+app.get('/posts/view-comments/:postId',(req,res) => {
+    let postId = req.params.postId
+    models.Post.findByPk(postId, {
+        include: [
+            {
+              model: models.Comment,
+              as: 'comments'
+            }
+          ]
+        // where: {
+        //   id : postId
+        // }
+      }).then((post) => {
+      console.log(post)
+      res.render('view-comments',{post: post})
+    })
+    // models.Comment.findByPk(2,{
+    //     include: [
+    //       {
+    //         model: models.Comment,
+    //         as: 'comments'
+    //       }
+    //     ]
+    //   })
+    //   .then((comment) => {
+    //     console.log(comment)
+    //   })
+})
+
+
 
 //Render view-posts and insert the data from the database
 app.get('/view-posts',(req,res) => {

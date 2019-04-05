@@ -1,0 +1,35 @@
+<html>
+<head></head>
+
+<body>
+
+<h1>Comments</h1>
+
+  <div>
+  {{post.title}}
+  </div>
+  <p>
+  {{post.body}}
+  </p>
+  <p>
+  {{post.id}}
+  </p>
+
+<ul>
+
+{{#post.comments}}
+<li>
+<p>
+{{title}}
+</p>
+<p>
+{{body}}
+</p>
+
+</li>
+</ul>
+{{/post.comments}}
+
+</body>
+
+</html>

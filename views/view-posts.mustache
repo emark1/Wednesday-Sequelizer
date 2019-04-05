@@ -21,9 +21,13 @@
     <input type="hidden" name="postId" value="{{id}}" />
     <button type="submit">Delete</button>
   </form>
+
   <a href="/posts/edit/{{id}}"><button>Edit</button></a>
+    <a href="/posts/view-comments/{{id}}"><button>View Comments</button></a>
+    
   <form action='/create-comment' method="POST">
     <input type="hidden" name="postId" value="{{id}}" />
+    <input type="text" name="commenttitle" placeholder="comment title" />
     <textarea name="commentbody" placeholder="Your comment"></textarea>
     <button type="submit">Save</button>
   </form>
